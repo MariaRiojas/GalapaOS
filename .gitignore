@@ -1,17 +1,14 @@
 # Data
 data/raw/
-data/processed/
 weather_stations_dataset/
 
-# Model checkpoints
-backend/checkpoints/*.pt
-backend/checkpoints/*.json
-
-# Results (generated)
-backend/results/
+# Pipeline outputs (generated)
+pipeline/checkpoints/
+pipeline/results/
 
 # Environment
 .env
+pipeline/.env
 participant-download.env
 
 # Python
@@ -26,7 +23,7 @@ venv/
 
 # Node
 node_modules/
-frontend/dist/
+dashboard/dist/
 
 # IDE
 .vscode/
@@ -43,3 +40,10 @@ Thumbs.db
 *.log
 manifest.json
 r2_download.py
+
+# Old structure (cleaned up)
+backend/
+frontend/
+
+# Prompt files
+CLAUDE_CODE_PROMPT*.md

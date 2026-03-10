@@ -1,0 +1,13 @@
+numpy
+pandas
+scipy
+scikit-learn
+torch --index-url https://download.pytorch.org/whl/cpu
+xgboost
+pyarrow
+boto3
+tqdm
+python-dotenv
+matplotlib
+seaborn
+jupyter

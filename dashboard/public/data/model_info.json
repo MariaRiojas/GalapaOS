@@ -1,0 +1,23 @@
+{
+  "best_model": "XGBoost",
+  "targets": {
+    "solar_ramp_3h": {
+      "XGBoost": {"PR_AUC": 0.0, "CSI": 0.0, "POD": 0.0, "FAR": 0.0, "F1": 0.0},
+      "LSTM": {"PR_AUC": 0.0, "CSI": 0.0, "POD": 0.0, "FAR": 0.0, "F1": 0.0}
+    },
+    "heavy_rain_3h": {
+      "XGBoost": {"PR_AUC": 0.0, "CSI": 0.0, "POD": 0.0, "FAR": 0.0, "F1": 0.0},
+      "LSTM": {"PR_AUC": 0.0, "CSI": 0.0, "POD": 0.0, "FAR": 0.0, "F1": 0.0}
+    }
+  },
+  "top_features": [
+    {"name": "mira_kt_ramp_lag_6", "importance": 0.0},
+    {"name": "kt_gradient_coast_highland", "importance": 0.0},
+    {"name": "jun_kt_std_1h", "importance": 0.0}
+  ],
+  "feature_count": 165,
+  "lookback_hours": 24,
+  "data_range": "2015-06 to 2026-03",
+  "train_size": 149000,
+  "test_size": 35000
+}
