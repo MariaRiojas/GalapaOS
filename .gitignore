@@ -1,0 +1,45 @@
+# Data
+data/raw/
+data/processed/
+weather_stations_dataset/
+
+# Model checkpoints
+backend/checkpoints/*.pt
+backend/checkpoints/*.json
+
+# Results (generated)
+backend/results/
+
+# Environment
+.env
+participant-download.env
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+
+# Node
+node_modules/
+frontend/dist/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Misc
+*.log
+manifest.json
+r2_download.py
