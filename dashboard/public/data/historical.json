@@ -1,13 +1,42 @@
 {
-  "total_years": 10,
-  "rdi_distribution": {"green_pct": 54.2, "yellow_pct": 31.0, "red_pct": 14.8},
-  "ramp_events_per_year": 875,
-  "ramp_by_month": [45, 52, 68, 71, 55, 82, 95, 88, 76, 65, 58, 48],
-  "cross_station_lags": {
-    "mira_to_jun": {"lag_min": 48, "correlation": 0.72, "speed_km_h": 17.6},
-    "mira_to_merc": {"lag_min": 30, "correlation": 0.81, "speed_km_h": 10.4},
-    "merc_to_jun": {"lag_min": 45, "correlation": 0.78, "speed_km_h": 11.9}
+  "total_years": 10.7,
+  "rdi_distribution": {
+    "green_pct": 0.3,
+    "yellow_pct": 3.4,
+    "red_pct": 96.3
   },
-  "inversions_per_year": 320,
+  "ramp_events_per_year": 5275,
+  "ramp_by_month": [
+    422,
+    498,
+    631,
+    526,
+    494,
+    333,
+    453,
+    423,
+    411,
+    293,
+    427,
+    358
+  ],
+  "cross_station_lags": {
+    "mira_to_jun": {
+      "lag_min": 0,
+      "correlation": 0.747,
+      "speed_km_h": null
+    },
+    "mira_to_merc": {
+      "lag_min": 15,
+      "correlation": 0.746,
+      "speed_km_h": 20.8
+    },
+    "merc_to_jun": {
+      "lag_min": 0,
+      "correlation": 0.903,
+      "speed_km_h": null
+    }
+  },
+  "inversions_per_year": 12677,
   "inversion_ramp_correlation": 0.42
 }

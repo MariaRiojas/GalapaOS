@@ -2,18 +2,91 @@
   "best_model": "XGBoost",
   "targets": {
     "solar_ramp_3h": {
-      "XGBoost": {"PR_AUC": 0.0, "CSI": 0.0, "POD": 0.0, "FAR": 0.0, "F1": 0.0},
-      "LSTM": {"PR_AUC": 0.0, "CSI": 0.0, "POD": 0.0, "FAR": 0.0, "F1": 0.0}
+      "LSTM": {
+        "PR_AUC": 0.2863,
+        "POD": 0.1702,
+        "FAR": 0.5712,
+        "CSI": 0.1388,
+        "F1": 0.2437,
+        "BSS": 0.0392,
+        "n_samples": 58837,
+        "n_positive": 6862
+      },
+      "XGBoost": {
+        "PR_AUC": 0.55,
+        "POD": 0.872,
+        "FAR": 0.6655,
+        "CSI": 0.3189,
+        "F1": 0.4836,
+        "BSS": -0.3292,
+        "n_samples": 58837,
+        "n_positive": 6862
+      }
     },
     "heavy_rain_3h": {
-      "XGBoost": {"PR_AUC": 0.0, "CSI": 0.0, "POD": 0.0, "FAR": 0.0, "F1": 0.0},
-      "LSTM": {"PR_AUC": 0.0, "CSI": 0.0, "POD": 0.0, "FAR": 0.0, "F1": 0.0}
+      "LSTM": {
+        "PR_AUC": 0.0286,
+        "POD": 0.5446,
+        "FAR": 0.976,
+        "CSI": 0.0236,
+        "F1": 0.046,
+        "BSS": -10.1495,
+        "n_samples": 58837,
+        "n_positive": 1087
+      },
+      "XGBoost": {
+        "PR_AUC": 0.164,
+        "POD": 0.0175,
+        "FAR": 0.6885,
+        "CSI": 0.0168,
+        "F1": 0.0331,
+        "BSS": 0.0775,
+        "n_samples": 58837,
+        "n_positive": 1087
+      }
     }
   },
   "top_features": [
-    {"name": "mira_kt_ramp_lag_6", "importance": 0.0},
-    {"name": "kt_gradient_coast_highland", "importance": 0.0},
-    {"name": "jun_kt_std_1h", "importance": 0.0}
+    {
+      "name": "hour_cos",
+      "importance": 0.111979
+    },
+    {
+      "name": "hour_sin",
+      "importance": 0.043101
+    },
+    {
+      "name": "jun_kt",
+      "importance": 0.040142
+    },
+    {
+      "name": "merc_solar_kw",
+      "importance": 0.035948
+    },
+    {
+      "name": "jun_solar_kw",
+      "importance": 0.033688
+    },
+    {
+      "name": "jun_kt_std_1h",
+      "importance": 0.026512
+    },
+    {
+      "name": "mira_dewpoint",
+      "importance": 0.024985
+    },
+    {
+      "name": "merc_kt",
+      "importance": 0.021917
+    },
+    {
+      "name": "cer_dewpoint",
+      "importance": 0.019462
+    },
+    {
+      "name": "merc_rain_missing",
+      "importance": 0.017098
+    }
   ],
   "feature_count": 165,
   "lookback_hours": 24,

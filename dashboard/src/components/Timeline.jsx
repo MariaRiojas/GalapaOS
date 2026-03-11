@@ -1,6 +1,6 @@
 import {
   ComposedChart, Area, Line, Bar, XAxis, YAxis,
-  CartesianGrid, Tooltip, ReferenceLine, ResponsiveContainer,
+  CartesianGrid, Tooltip, ResponsiveContainer,
   ReferenceArea,
 } from 'recharts';
 import { CHART_COLORS, SEMAPHORE_COLORS } from '../utils/colors';
@@ -23,21 +23,49 @@ function buildColorBands(data) {
   return bands;
 }
 
+function formatAxisTick(time, rangeHours) {
+  const d = new Date(time);
+  const hh = String(d.getHours()).padStart(2, '0');
+  const mm = String(d.getMinutes()).padStart(2, '0');
+  if (rangeHours > 24) {
+    const day = d.getDate();
+    const mon = d.toLocaleDateString('en-US', { month: 'short' });
+    return `${day} ${mon} ${hh}:${mm}`;
+  }
+  return `${hh}:${mm}`;
+}
+
 function CustomTooltip({ active, payload, label }) {
   if (!active || !payload?.length) return null;
+  const date = new Date(label);
+  const dateStr = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+  const timeStr = formatTime(label);
+  const raw = payload[0]?.payload || {};
   return (
     <div className="bg-slate-800 border border-slate-600 rounded-lg px-3 py-2 text-xs shadow-lg">
-      <p className="text-slate-300 font-medium mb-1">{formatTime(label)}</p>
+      <p className="text-slate-300 font-medium mb-1">{dateStr} {timeStr}</p>
       {payload.map((p, i) => (
         <p key={i} style={{ color: p.color }}>
           {p.name}: {typeof p.value === 'number' ? p.value.toFixed(2) : p.value}
         </p>
       ))}
+      {raw.radiacion_wm2 != null && (
+        <p className="text-amber-300 mt-1">Irradiance: {raw.radiacion_wm2} W/m²</p>
+      )}
+      {raw.temp_c != null && (
+        <p className="text-orange-300">Temp: {raw.temp_c}°C | Humidity: {raw.humidity_pct}%</p>
+      )}
+      {raw.cloud_cover_pct != null && (
+        <p className="text-blue-300">Cloud: {raw.cloud_cover_pct}% | kt: {raw.kt}</p>
+      )}
+      {raw.is_forecast && (
+        <p className="text-purple-400 mt-1 italic">Forecast</p>
+      )}
     </div>
   );
 }
 
-export default function Timeline({ timesteps }) {
+export default function Timeline({ timesteps, rangeHours = 12, filterBar }) {
   if (!timesteps?.length) {
     return (
       <div className="bg-eco-card rounded-xl p-6 flex items-center justify-center h-full">
@@ -53,14 +81,23 @@ export default function Timeline({ timesteps }) {
 
   const bands = buildColorBands(data);
 
-  // Find approximate "now" (1/3 into the forecast)
-  const nowIdx = Math.floor(data.length / 3);
-  const nowTime = data[nowIdx]?.time;
+  const tickInterval = rangeHours <= 6 ? Math.max(1, Math.floor(data.length / 12))
+    : rangeHours <= 12 ? Math.max(1, Math.floor(data.length / 8))
+    : rangeHours <= 24 ? Math.max(1, Math.floor(data.length / 8))
+    : Math.max(1, Math.floor(data.length / 10));
 
   return (
     <div className="bg-eco-card rounded-xl p-4">
-      <h3 className="text-sm font-semibold text-slate-300 mb-2 px-2">12-Hour Forecast</h3>
-      <ResponsiveContainer width="100%" height={260}>
+      <div className="flex items-center justify-between mb-3 px-2 flex-wrap gap-2">
+        <h3 className="text-sm font-semibold text-slate-300">
+          Forecast Timeline
+          <span className="text-slate-500 font-normal ml-2">
+            ({data.length} points)
+          </span>
+        </h3>
+        {filterBar}
+      </div>
+      <ResponsiveContainer width="100%" height={280}>
         <ComposedChart data={data} margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
           <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
 
@@ -80,35 +117,47 @@ export default function Timeline({ timesteps }) {
 
           <XAxis
             dataKey="time"
-            tickFormatter={formatTime}
+            tickFormatter={t => formatAxisTick(t, rangeHours)}
             tick={{ fill: '#94a3b8', fontSize: 10 }}
-            interval={Math.floor(data.length / 6)}
+            interval={tickInterval}
             stroke="#475569"
+            angle={rangeHours > 24 ? -25 : 0}
+            textAnchor={rangeHours > 24 ? 'end' : 'middle'}
+            height={rangeHours > 24 ? 45 : 30}
           />
           <YAxis
             yAxisId="left"
             tick={{ fill: '#94a3b8', fontSize: 10 }}
             stroke="#475569"
-            label={{ value: 'kW', angle: -90, position: 'insideLeft', fill: '#94a3b8', fontSize: 10 }}
+            label={{ value: 'W/m²', angle: -90, position: 'insideLeft', fill: '#94a3b8', fontSize: 10 }}
           />
           <YAxis
             yAxisId="right"
             orientation="right"
             tick={{ fill: '#94a3b8', fontSize: 10 }}
             stroke="#475569"
-            label={{ value: 'm/s', angle: 90, position: 'insideRight', fill: '#94a3b8', fontSize: 10 }}
+            label={{ value: 'kW / m/s', angle: 90, position: 'insideRight', fill: '#94a3b8', fontSize: 10 }}
           />
 
           <Tooltip content={<CustomTooltip />} />
 
           <Area
             yAxisId="left"
+            dataKey="radiacion_wm2"
+            name="Irradiance"
+            fill={CHART_COLORS.radiation || '#f97316'}
+            fillOpacity={0.2}
+            stroke={CHART_COLORS.radiation || '#f97316'}
+            strokeWidth={2}
+            type="monotone"
+          />
+          <Line
+            yAxisId="right"
             dataKey="solar_kw"
-            name="Solar"
-            fill={CHART_COLORS.solar}
-            fillOpacity={0.3}
+            name="Solar kW"
             stroke={CHART_COLORS.solar}
             strokeWidth={2}
+            dot={false}
             type="monotone"
           />
           <Line
@@ -128,17 +177,6 @@ export default function Timeline({ timesteps }) {
             fillOpacity={0.6}
             barSize={4}
           />
-
-          {nowTime && (
-            <ReferenceLine
-              x={nowTime}
-              yAxisId="left"
-              stroke="#e2e8f0"
-              strokeDasharray="4 4"
-              strokeWidth={1}
-              label={{ value: 'NOW', fill: '#e2e8f0', fontSize: 10, position: 'top' }}
-            />
-          )}
         </ComposedChart>
       </ResponsiveContainer>
     </div>

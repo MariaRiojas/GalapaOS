@@ -1,16 +1,40 @@
+import { useState, useMemo } from 'react';
+import { useForecast } from './data/useData';
 import Header from './components/Header';
-import ActionTrigger from './components/ActionTrigger';
-import Semaphore from './components/Semaphore';
-import Timeline from './components/Timeline';
-import AlertsPanel from './components/AlertsPanel';
-import StationCards from './components/StationCards';
-import ModelInfo from './components/ModelInfo';
-import { useForecast, useStations, useModelInfo } from './data/useData';
+import KpiRow from './components/KpiRow';
+import EnergyForecast from './components/EnergyForecast';
+import TimeFilter from './components/TimeFilter';
+import SolarConditions from './components/SolarConditions';
+import AlertFeed from './components/AlertFeed';
+import GridStatus from './components/GridStatus';
+
+function filterTimesteps(timesteps, startDateTime, rangeHours) {
+  if (!timesteps?.length || !startDateTime) return timesteps || [];
+  const start = new Date(startDateTime).getTime();
+  const end = start + rangeHours * 60 * 60 * 1000;
+  return timesteps.filter(t => {
+    const ts = new Date(t.time).getTime();
+    return ts >= start && ts < end;
+  });
+}
 
 export default function App() {
   const { data: forecast } = useForecast();
-  const { data: stationsData } = useStations();
-  const { data: modelInfo } = useModelInfo();
+  const [rangeHours, setRangeHours] = useState(24);
+  const [selectedDateTime, setSelectedDateTime] = useState(null);
+
+  // Default to first available timestep
+  const defaultDateTime = useMemo(() => {
+    if (!forecast?.timesteps?.length) return null;
+    return forecast.timesteps[0].time;
+  }, [forecast]);
+
+  const activeDateTime = selectedDateTime || defaultDateTime;
+
+  const filteredTimesteps = useMemo(() => {
+    if (!forecast?.timesteps || !activeDateTime) return forecast?.timesteps || [];
+    return filterTimesteps(forecast.timesteps, activeDateTime, rangeHours);
+  }, [forecast, activeDateTime, rangeHours]);
 
   if (!forecast) {
     return (
@@ -23,44 +47,32 @@ export default function App() {
     );
   }
 
-  const semaphore = {
-    rdi: forecast.current_rdi,
-    color: forecast.current_color,
-    label: forecast.current_color === 'green' ? 'SURPLUS'
-         : forecast.current_color === 'red' ? 'DEFICIT' : 'WATCH',
-    action: forecast.current_action,
-  };
-
   return (
     <div className="min-h-screen flex flex-col">
       <Header timestamp={forecast.generated_at} />
+      <KpiRow forecast={forecast} />
 
-      <ActionTrigger
-        color={forecast.current_color}
-        message={forecast.action_trigger}
-        nextTransition={forecast.next_transition}
-      />
-
-      <main className="flex-1 p-4 grid grid-cols-1 lg:grid-cols-4 gap-4">
-        {/* Left column: Semaphore + Alerts */}
-        <div className="lg:col-span-1 flex flex-col gap-4">
-          <Semaphore {...semaphore} />
-          <AlertsPanel alerts={forecast.alerts} />
-        </div>
-
-        {/* Right column: Timeline + Stations */}
-        <div className="lg:col-span-3 flex flex-col gap-4">
-          <Timeline timesteps={forecast.timesteps} />
-          {stationsData && (
-            <StationCards
-              stations={stationsData.stations}
-              transect={stationsData.transect}
+      <main className="flex-1 p-3 sm:p-4 space-y-3 sm:space-y-4">
+        <EnergyForecast
+          forecast={forecast}
+          timesteps={filteredTimesteps}
+          filterBar={
+            <TimeFilter
+              timesteps={forecast.timesteps}
+              selectedRange={rangeHours}
+              onRangeChange={setRangeHours}
+              selectedDateTime={activeDateTime}
+              onDateTimeChange={setSelectedDateTime}
             />
-          )}
+          }
+        />
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4">
+          <GridStatus forecast={forecast} />
+          <SolarConditions forecast={forecast} />
+          <AlertFeed alerts={forecast.alerts} />
         </div>
       </main>
-
-      <ModelInfo info={modelInfo} />
     </div>
   );
 }

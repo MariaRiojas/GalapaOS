@@ -1,36 +1,76 @@
 {
-  "timestamp": "2024-09-15T08:00:00",
+  "timestamp": "2024-12-25T10:00:00",
   "stations": [
     {
-      "id": "mira", "name": "El Mirador", "zone": "coastal",
-      "elevation_m": 80, "lat": -0.910, "lon": -89.610, "order": 1,
-      "kt": 0.35, "wind_ms": 5.1, "temp_c": 24.2, "rain_mm": 0.1,
-      "status": "cloudy", "temp_lapse_dev": 0.0, "inversion": false
+      "id": "mira",
+      "name": "El Mirador",
+      "zone": "coastal",
+      "elevation_m": 80,
+      "lat": -0.91,
+      "lon": -89.61,
+      "order": 1,
+      "kt": 0.71,
+      "wind_ms": 0.0,
+      "temp_c": 24.8,
+      "rain_mm": 0.0,
+      "status": "clear",
+      "temp_lapse_dev": 0.0,
+      "inversion": false
     },
     {
-      "id": "merc", "name": "Merceditas", "zone": "mid-elevation",
-      "elevation_m": 300, "lat": -0.895, "lon": -89.575, "order": 2,
-      "kt": 0.62, "wind_ms": 4.8, "temp_c": 22.1, "rain_mm": 0.0,
-      "status": "partly_cloudy", "temp_lapse_dev": 0.5, "inversion": false
+      "id": "merc",
+      "name": "Merceditas",
+      "zone": "mid-elevation",
+      "elevation_m": 300,
+      "lat": -0.895,
+      "lon": -89.575,
+      "order": 2,
+      "kt": 0.98,
+      "wind_ms": 1.5,
+      "temp_c": 0.0,
+      "rain_mm": 0.0,
+      "status": "clear",
+      "temp_lapse_dev": -23.3,
+      "inversion": false
     },
     {
-      "id": "cer", "name": "Cerro Alto", "zone": "highland",
-      "elevation_m": 500, "lat": -0.880, "lon": -89.555, "order": 3,
-      "kt": 0.85, "wind_ms": 6.2, "temp_c": 19.5, "rain_mm": 0.0,
-      "status": "clear", "temp_lapse_dev": -0.3, "inversion": false
+      "id": "cer",
+      "name": "Cerro Alto",
+      "zone": "highland",
+      "elevation_m": 500,
+      "lat": -0.88,
+      "lon": -89.555,
+      "order": 3,
+      "kt": 0.9,
+      "wind_ms": 2.3,
+      "temp_c": 20.9,
+      "rain_mm": 0.0,
+      "status": "clear",
+      "temp_lapse_dev": -1.1,
+      "inversion": false
     },
     {
-      "id": "jun", "name": "El Junco", "zone": "summit",
-      "elevation_m": 700, "lat": -0.870, "lon": -89.540, "order": 4,
-      "kt": 0.91, "wind_ms": 7.1, "temp_c": 17.8, "rain_mm": 0.0,
-      "status": "clear", "temp_lapse_dev": -0.2, "inversion": false
+      "id": "jun",
+      "name": "El Junco",
+      "zone": "summit",
+      "elevation_m": 700,
+      "lat": -0.87,
+      "lon": -89.54,
+      "order": 4,
+      "kt": 0.6,
+      "wind_ms": 2.2,
+      "temp_c": 0.0,
+      "rain_mm": 0.0,
+      "status": "partly_cloudy",
+      "temp_lapse_dev": -20.7,
+      "inversion": false
     }
   ],
   "transect": {
     "total_elevation_m": 620,
     "total_distance_km": 14.1,
-    "rh_gradient": 15.3,
+    "rh_gradient": 0.0,
     "inversion_active": false,
-    "propagation_lag_mira_jun_min": 48
+    "propagation_lag_mira_jun_min": 0
   }
 }

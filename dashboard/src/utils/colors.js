@@ -9,6 +9,7 @@ export const CHART_COLORS = {
   wind: '#38bdf8',
   rain: '#60a5fa',
   ramp: '#ef4444',
+  radiation: '#f97316',
 };
 
 export function getStatusColor(status) {
