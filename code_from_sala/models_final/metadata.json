@@ -89,7 +89,7 @@
       "model": "daylight",
       "horizon": "30m",
       "horizon_min": 30,
-      "mae_wm2": 34.47,
+      "mae_wm2": 34.57,
       "within_50w_pct": 77.4,
       "n_samples": 13954,
       "set": "test"
@@ -98,7 +98,7 @@
       "model": "daylight",
       "horizon": "60m",
       "horizon_min": 60,
-      "mae_wm2": 45.93,
+      "mae_wm2": 45.77,
       "within_50w_pct": 67.7,
       "n_samples": 13958,
       "set": "test"
@@ -107,8 +107,8 @@
       "model": "daylight",
       "horizon": "90m",
       "horizon_min": 90,
-      "mae_wm2": 50.17,
-      "within_50w_pct": 64.3,
+      "mae_wm2": 50.21,
+      "within_50w_pct": 64.4,
       "n_samples": 13960,
       "set": "test"
     },
@@ -116,8 +116,8 @@
       "model": "daylight",
       "horizon": "120m",
       "horizon_min": 120,
-      "mae_wm2": 56.62,
-      "within_50w_pct": 59.2,
+      "mae_wm2": 56.56,
+      "within_50w_pct": 59.3,
       "n_samples": 13961,
       "set": "test"
     },
@@ -125,8 +125,8 @@
       "model": "daylight",
       "horizon": "150m",
       "horizon_min": 150,
-      "mae_wm2": 57.95,
-      "within_50w_pct": 58.4,
+      "mae_wm2": 58.23,
+      "within_50w_pct": 58.0,
       "n_samples": 13961,
       "set": "test"
     },
@@ -134,8 +134,8 @@
       "model": "daylight",
       "horizon": "180m",
       "horizon_min": 180,
-      "mae_wm2": 61.78,
-      "within_50w_pct": 55.2,
+      "mae_wm2": 61.74,
+      "within_50w_pct": 55.4,
       "n_samples": 13961,
       "set": "test"
     }
