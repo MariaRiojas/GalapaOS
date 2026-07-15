@@ -60,13 +60,14 @@ IF IT IS NOT, SHIP A SMALL SAMPLE SO THE NOTEBOOK RUNS END TO END.
 
 ## Paper
 
-A technical paper is in preparation. LINK IT WHEN AVAILABLE.
+A technical paper is in preparation.
 
 ## Team
 
-Built by an 8-person international team. LIST THEM — CREDIT IS FREE AND IT MATTERS.
-Technical lead: María Jesús Riojas Concha.
+Built by an 8-person international team.
+Project lead: María Jesús Riojas Concha.
+Technical lead: Salvador Yabar
 
 ## License
 
-CHOOSE ONE — MIT OR APACHE-2.0. A REPO WITHOUT A LICENSE IS LEGALLY UNUSABLE BY ANYONE ELSE.
+APACHE-2.0.
