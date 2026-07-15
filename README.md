@@ -81,4 +81,4 @@ Open the notebook at the repo root to run model development and evaluation end t
 ## Team
 
 Built by an 8-person international team during the SALA 2026 Hackathon.
-Technical lead: María Jesús Riojas Concha.
+Project lead: María Jesús Riojas Concha.
